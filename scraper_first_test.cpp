@@ -10,7 +10,7 @@ int main()
     cpr::Header headers = {{"User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36"}};
 
     // make an HTTP GET request to retrieve the target page
-    cpr::Response response = cpr::Get(cpr::Url{"https://cryptorank.io/"}, headers);
+    cpr::Response response = cpr::Get(cpr::Url{"https://cryptorank.io/price/bitcoin"}, headers);
 
     // parse the HTML document returned by the server
     htmlDocPtr doc = htmlReadMemory(response.text.c_str(), response.text.length(), nullptr, nullptr, HTML_PARSE_NOWARNING | HTML_PARSE_NOERROR);
@@ -19,7 +19,7 @@ int main()
     xmlXPathContextPtr context = xmlXPathNewContext(doc);
 
     // select the desired HTML element with an XPath selector
-    xmlXPathObjectPtr element_html = xmlXPathEvalExpression((xmlChar *)"//tr[contains(@class, 'sc-bcd12f23-0 legFfX')]", context);
+    xmlXPathObjectPtr element_html = xmlXPathEvalExpression((xmlChar *)"//p[contains(@class, 'sc-151230bb-0 sc-3d13e9e9-5 fNnkcW')]", context);
     
     if (element_html->nodesetval && element_html->nodesetval->nodeNr > 0)
     {
